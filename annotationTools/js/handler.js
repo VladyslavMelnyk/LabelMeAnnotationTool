@@ -329,6 +329,25 @@ function handler() {
 	/*************************************************************/
       }
       else {
+	html_str += '<bndbox>';
+        if (draw_x[0]<draw_x[2]){
+	html_str += '<xmin>' + draw_x[0]+ '</xmin>';}
+	else{
+	html_str += '<xmin>' + draw_x[2]+ '</xmin>';}
+	if (draw_y[1]<draw_y[3]){ 
+	html_str += '<ymin>' + draw_y[1]+ '</ymin>';}
+	else{
+	html_str += '<ymin>' + draw_y[3]+ '</ymin>';}
+	if (draw_x[0]<draw_x[2]){
+	html_str += '<xmax>' + draw_x[2]+ '</xmax>';}
+	else{
+        html_str += '<xmax>' + draw_x[0]+ '</xmax>';} 
+	if (draw_y[1]<draw_y[3]){ 
+	html_str += '<ymax>' + draw_y[3]+ '</ymax>';}
+	else{
+	html_str += '<ymax>' + draw_y[1]+ '</ymax>';}
+	html_str += '</bndbox>';
+	      
 	html_str += '<polygon>';
 	html_str += '<username>' + username + '</username>';
 	for(var jj=0; jj < draw_x.length; jj++) {
