@@ -18,12 +18,10 @@ having to install or copy a large dataset onto their computers.
 
 ### DOWNLOAD:
 
-You can download a [zip file of the source code](https://github.com/CSAILVision/LabelMeAnnotationTool/archive/master.zip) directly.  
 
-Alternatively, you can clone it from GitHub as follows:
 
 ``` sh
-$ git clone https://github.com/CSAILVision/LabelMeAnnotationTool.git
+$ git clone https://github.com/VladyslavMelnyk/LabelMeAnnotationTool.git
 ```
 
 
