@@ -305,12 +305,12 @@ function handler() {
 	html_str += '<segm>';
 	html_str += '<username>' + username + '</username>';
 	
-	html_str += '<box>';
+	html_str += '<bndbox>';
 	html_str += '<xmin>' + scribble_canvas.object_corners[0] + '</xmin>'; 
 	html_str += '<ymin>' + scribble_canvas.object_corners[1] + '</ymin>';
 	html_str += '<xmax>' + scribble_canvas.object_corners[2] + '</xmax>'; 
 	html_str += '<ymax>' + scribble_canvas.object_corners[3] + '</ymax>';
-	html_str += '</box>';
+	html_str += '</bndbox>';
 	
 	html_str += '<mask>'+ scribble_canvas.image_name +'</mask>';
 	
