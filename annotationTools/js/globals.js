@@ -45,7 +45,7 @@ var ref;
 
 // Indicates whether we are in segmentation or polygon mode
 var drawing_mode = 0;
-
+var showImgName = true;
 
 // Scribble mode:
 var scribble_mode = true;
@@ -69,7 +69,7 @@ var submission_edited = 0;
 var action_CreatePolygon = 1;
 var action_RenameExistingObjects = 0;
 var action_ModifyControlExistingObjects = 0;
-var action_DeleteExistingObjects = 0;
+var action_DeleteExistingObjects = 1;
 
 // Which polygons are visible:
 var view_Existing = 1;
@@ -81,8 +81,8 @@ var view_ObjList = true;
 // Mechanical Turk variables:
 var LMbaseurl = 'http://' + window.location.host + window.location.pathname;
 var MThelpPage = 'annotationTools/html/mt_instructions.html';
-var externalSubmitURL = 'http://mturk.com/mturk/externalSubmit';
-var externalSubmitURLsandbox = 'http://workersandbox.mturk.com/mturk/externalSubmit';
+var externalSubmitURL = 'https://www.mturk.com/mturk/externalSubmit';
+var externalSubmitURLsandbox = 'https://workersandbox.mturk.com/mturk/externalSubmit';
 var mt_N = 'inf';
 
 var object_choices = '...';
