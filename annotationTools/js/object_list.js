@@ -53,7 +53,7 @@ function RenderObjectList() {
         html_str += '<p style="font-size:10px;line-height:100%" ondrop="drop(event, -1)" ondragenter="return dragEnter(event)" ondragover="return dragOver(event)">Drag a tag on top of another one to create a part-of relationship.</p>';
     }
 
-    html_str += '<p style="font-size:14px; font-weight:bold; line-height:100%">Confirm recognize<input id="confirmRecognize" type="checkbox"/></p>'
+    html_str += '<p style="font-size:14px; font-weight:bold; line-height:100%">Confirm annotation<input id="confirmRecognize" type="checkbox" onclick="ConfirmRecognize(this)"/></p>'
     var x = new XMLHttpRequest();
     var xml_url = main_media.GetFileInfo().GetAnnotationPath();
     x.open("GET", xml_url, true);

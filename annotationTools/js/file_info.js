@@ -282,7 +282,13 @@ function file_info() {
 
     /** Gets annotation path */
     this.GetAnnotationPath = function () {
-        if ((this.mode == 'i') || (this.mode == 'c') || (this.mode == 'f') || (this.mode == 'im') || (this.mode == 'mt')) return 'Annotations/' + this.dir_name + '/' + this.im_name.substr(0, this.im_name.length - 4) + 'xml';
+        if ((this.mode == 'i') || (this.mode == 'c') || (this.mode == 'f') || (this.mode == 'im') || (this.mode == 'mt')) {
+            if(this.im_name.substr(0, this.im_name.length - 4).indexOf(".") > -1){
+                return 'Annotations/' + this.dir_name + '/' + this.im_name.substr(0, this.im_name.length - 4) + 'xml';
+            } else {
+                return 'Annotations/' + this.dir_name + '/' + this.im_name.substr(0, this.im_name.length - 4) + '.xml';
+            }
+        }
     };
 
     /** Gets full image name */

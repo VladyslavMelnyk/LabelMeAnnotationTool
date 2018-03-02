@@ -238,7 +238,6 @@ function FinishStartup() {
     $('#xml_url').attr("onclick", "javascript:GetXMLFile();");
     $('#prevImage').attr("onclick", "javascript:ShowPrevImage()");
     $('#nextImage').attr("onclick", "javascript:ShowNextImage()");
-    $('#confirmRecognize').attr("onclick", "javascript:ConfirmRecognize(this)");
     $('#lessContrast').attr("onclick", "javascript:main_media.AugmentContrast()");
     $('#moreContrast').attr("onclick", "javascript:main_media.ReduceContrast()");
     if (video_mode) {
