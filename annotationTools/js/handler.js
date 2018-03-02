@@ -137,16 +137,8 @@ function handler() {
         WriteLogMsg('*Deleting_object');
         InsertServerLogData('cpts_not_modified');
 
-        // Set <deleted> in LM_xml:
-        LMsetObjectField(LM_xml, idx, "deleted", "1");
-
         // Remove all the part dependencies for the deleted object
         removeAllParts(idx);
-
-        // Write XML to server:
-        WriteXML(SubmitXmlUrl, LM_xml, function () {
-            return;
-        });
 
         // Refresh object list:
         if (view_ObjList) RenderObjectList();
@@ -157,6 +149,15 @@ function handler() {
             scribble_canvas.annotationid = -1;
             scribble_canvas.cleanscribbles();
         }
+        unselectObjects();
+        if (view_ObjList) RenderObjectList();
+
+        // todo delete frame
+        // main_canvas.annotations[idx].DeletePolygon();
+        $(LM_xml).children("annotation").children("object")[idx].remove();
+        WriteXML(SubmitXmlUrl, LM_xml, function () {
+            return;
+        });
     };
 
     // Handles when the user clicks on the link for an annotation.

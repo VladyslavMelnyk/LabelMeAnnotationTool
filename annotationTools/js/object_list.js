@@ -60,8 +60,7 @@ function RenderObjectList() {
         x.onreadystatechange = function () {
             if (x.readyState == 4 && x.status == 200)
             {
-                var a = $(x.responseXML).children("annotation").children("object").children("confirmed").text()
-                console.log(a);
+                var a = $(x.responseXML).children("annotation").children("object").children("confirmed").text();
                 if (parseInt(a) == 1) {
                     $("#confirmRecognize").prop('checked', true);
                 } else {
