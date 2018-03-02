@@ -54,7 +54,22 @@ function RenderObjectList() {
     }
 
     html_str += '<p style="font-size:14px; font-weight:bold; line-height:100%">Confirm recognize<input id="confirmRecognize" type="checkbox"/></p>'
-
+    var x = new XMLHttpRequest();
+    var xml_url = main_media.GetFileInfo().GetAnnotationPath();
+    x.open("GET", xml_url, true);
+        x.onreadystatechange = function () {
+            if (x.readyState == 4 && x.status == 200)
+            {
+                var a = $(x.responseXML).children("annotation").children("object").children("confirmed").text()
+                console.log(a);
+                if (parseInt(a) == 1) {
+                    $("#confirmRecognize").prop('checked', true);
+                } else {
+                    $("#confirmRecognize").prop('checked', false)
+                }
+            }
+        };
+        x.send(null);
     html_str += '<ol>';
 
     // Show list (of non-deleted objects)

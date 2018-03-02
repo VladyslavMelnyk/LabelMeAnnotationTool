@@ -88,10 +88,31 @@ function ShowPrevImage() {
 }
 
 function ConfirmRecognize(e) {
-    if ($('#confirmRecognize').is(":checked")) {
-        console.log(1);
+    var x = new XMLHttpRequest();
+    var xml_url = main_media.GetFileInfo().GetAnnotationPath();
+    x.open("GET", xml_url, true);
+    if (e.checked) {
+        x.onreadystatechange = function () {
+            if (x.readyState == 4 && x.status == 200)
+            {
+                $(x.responseXML).children("annotation").children("object").children("confirmed").text('1')
+                WriteXML(SubmitXmlUrl, x.responseXML, function () {
+                    return;
+                });
+            }
+        };
+        x.send(null);
     } else {
-        console.log(0)
+        x.onreadystatechange = function () {
+            if (x.readyState == 4 && x.status == 200)
+            {
+                $(x.responseXML).children("annotation").children("object").children("confirmed").text('0');
+                WriteXML(SubmitXmlUrl, x.responseXML, function () {
+                    return;
+                });
+            }
+        };
+        x.send(null);
     }
 }
 
