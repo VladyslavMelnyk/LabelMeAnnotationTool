@@ -253,6 +253,20 @@ function image(id) {
     this.SetOrigImDims = function (im) {
         this.width_orig = im.naturalWidth;
         this.height_orig = im.naturalHeight;
+        var x = new XMLHttpRequest();
+        var xml_url = main_media.GetFileInfo().GetAnnotationPath();
+        x.open("GET", xml_url, true);
+        x.onreadystatechange = function () {
+            if (x.readyState == 4 && x.status == 200) {
+                console.log($(x.responseXML));
+                $(x.responseXML).children("annotation").children("imagesize").children("nrows").text(im.naturalWidth);
+                $(x.responseXML).children("annotation").children("imagesize").children("ncols").text(im.naturalHeight);
+                WriteXML(SubmitXmlUrl, x.responseXML, function () {
+                    return;
+                });
+            }
+        };
+        x.send(null);
         return;
     };
     
