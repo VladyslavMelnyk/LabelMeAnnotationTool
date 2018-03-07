@@ -92,7 +92,7 @@ function file_info() {
                 if(par_field=='image') {
                     this.im_name = par_value;
                     if(this.im_name.indexOf('.jpg')==-1 &amp;&amp; this.im_name.indexOf('.png')==-1) {
-                        this.im_name = RemoveSpecialChars(this.im_name + '.jpg');
+                        this.im_name = this.im_name + '.jpg';
                     }
                 }
                 if(par_field=='hitId') {
