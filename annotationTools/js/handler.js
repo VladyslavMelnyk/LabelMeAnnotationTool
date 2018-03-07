@@ -153,7 +153,13 @@ function handler() {
         if (view_ObjList) RenderObjectList();
 
         // todo delete frame
-        // main_canvas.annotations[idx].DeletePolygon();
+        var a = main_canvas.annotations.find(function(item){
+           if(item.anno_id == idx){
+               return item;
+           }
+        });
+        console.log(a);
+        a.DeletePolygon();
         $(LM_xml).children("annotation").children("object")[idx].remove();
         WriteXML(SubmitXmlUrl, LM_xml, function () {
             return;
