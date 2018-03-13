@@ -1,8 +1,8 @@
 body {font-family:Arial;  color:black; overflow:hidden; 
 margin-top:0px; margin-left:0px; margin-right:0px; margin-bottom: 0px;}
-a:link {color: #0000FF; text-decoration: underline;}
-a:visited {color: #0000FF; text-decoration: underline;}
-a:hover {color: #0000FF; text-decoration: underline;}
+a:link {color: #592; text-decoration: none}
+a:visited {color: #592; text-decoration: none}
+a:hover {color: #592; text-decoration: underline;}
 
 table, div {border-collapse:collapse;}
 div#header {margin-top:0px; position:relative; width:100%;}
@@ -98,3 +98,19 @@ position:relative;
 height:100%; z-index:0;}
 #examples {width:100%; font-size:small;}
 #anno_list {font-size:small;}
+
+#listOfImages {
+  max-height: 200px;
+  max-width: 150px;
+  overflow: auto;
+}
+
+#changeuser {
+  color: lightgrey;
+  font-weight: bolder;
+}
+
+#changeuser:hover {
+  text-decoration: underline;
+
+}

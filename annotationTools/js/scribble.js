@@ -687,15 +687,15 @@ function Scribble_canvas(tag) {
     if (val != OBJECT_DRAWING && val != BG_DRAWING && val != RUBBER_DRAWING) return;
     if (val == OBJECT_DRAWING){
       this.scribblecanvas.setAttribute('style','cursor:url(Icons/red_pointer.cur), default');
-      document.getElementById("ScribbleObj").setAttribute('style', 'background-color: #faa');
+      document.getElementById("ScribbleObj").setAttribute('style', 'background-color: rgba(134, 177, 50, 0.3)');
     } 
     else if (val == BG_DRAWING){
      this.scribblecanvas.setAttribute('style','cursor:url(Icons/blue_pointer.cur), default');
-     document.getElementById("ScribbleBg").setAttribute('style', 'background-color: #faa');
+     document.getElementById("ScribbleBg").setAttribute('style', 'background-color: rgba(134, 177, 50, 0.3)');
     }
     else {
       this.scribblecanvas.setAttribute('style','cursor:url(Icons/rubber_pointer.cur), default');
-      document.getElementById("ScribbleRubber").setAttribute('style', 'background-color: #faa');
+      document.getElementById("ScribbleRubber").setAttribute('style', 'background-color: rgba(134, 177, 50, 0.3)');
     } 
     
     this.currently_drawing = val;
