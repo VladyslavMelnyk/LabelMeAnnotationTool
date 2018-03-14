@@ -248,7 +248,7 @@ function ShowAllImages() {
 
             arrayOfImageNames.forEach(function (value, index) {
                 var newIndex = index + 1;
-                list.innerHTML = list.innerHTML + "<li id='imageItem' style='position: relative; left: 10px; list-style-type: decimal; cursor: pointer; color: #592;' onclick='javascript:ShowChosenImage($(this).text())'>" + value +"</li>";
+                list.innerHTML = list.innerHTML + "<li>" + newIndex + ") " + "<a id='imageItem' style='cursor: pointer; color: #592;' onclick='javascript:ShowChosenImage($(this).text())'>" + value +"</a>" + "</li>";
             });
 
             // $('#listOfImages').replaceWith('<div id="shownListOfImages"><ol><li>Hide all polygons</li><li>dsdasdsdas</li></ol></div>');
