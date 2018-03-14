@@ -135,6 +135,23 @@ function ShowNextImage() {
     }
 }
 
+function ShowChosenImage(imageName) {
+    if (wait_for_input) return WaitForInput();
+    if (draw_anno) {
+        alert("Need to close current polygon first.");
+        return;
+    }
+    //$('#main_media').remove();
+
+    // Remove the object list:
+    RemoveObjectList();
+
+    // Get a new image and reset URL to reflect new image:
+
+    main_media.GetFileInfo().FetchChosenImage(imageName);
+    LoadNewMediaForChosenProduct();
+}
+
 function InsertServerLogData(modifiedControlPoints) {
     var old_pri = LM_xml.getElementsByTagName("private");
     for (ii = 0; ii < old_pri.length; ii++) {

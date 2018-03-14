@@ -388,6 +388,31 @@ function file_info() {
             alert('Fatal: there are problems with fetch_prev_image.cgi');
         }
     };
+    this.FetchChosenImage = function (imagName) {
+        var url = 'annotationTools/perl/fetch_selected_image.cgi?folder=' + this.dir_name + '&image=' + imagName;
+        var im_req;
+        // branch for native XMLHttpRequest object
+        if (window.XMLHttpRequest) {
+            im_req = new XMLHttpRequest();
+            im_req.open("GET", url, false);
+            im_req.send('');
+        }
+        else if (window.ActiveXObject) {
+            im_req = new ActiveXObject("Microsoft.XMLHTTP");
+            if (im_req) {
+                im_req.open("GET", url, false);
+                im_req.send('');
+            }
+        }
+        if (im_req.status == 200) {
+            this.dir_name = im_req.responseXML.getElementsByTagName("dir")[0].firstChild.nodeValue;
+            this.im_name = im_req.responseXML.getElementsByTagName("file")[0].firstChild.nodeValue;
+            imgName = imagName;
+        }
+        else {
+            alert('Fatal: there are problems with fetch_image.cgi');
+        }
+    };
     this.PreFetchImage = function () {
         var url = 'annotationTools/perl/fetch_image.cgi?mode=' + this.mode + '&username=' + username + '&collection=' + this.collection.toLowerCase() + '&folder=' + this.dir_name + '&image=' + this.im_name;
         var im_req;
