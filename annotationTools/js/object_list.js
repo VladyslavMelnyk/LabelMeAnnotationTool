@@ -30,11 +30,31 @@ function RenderObjectList() {
 
     // Get parts tree
     var tree = getPartsTree();
+    var xmlUrl = 'annotationTools/perl/get_all_images.cgi';
+    var xml = new XMLHttpRequest();
+    xml.open("GET", xmlUrl, false);
+    var arrayOfImageNames;
+    var a;
+    xml.onreadystatechange = function () {
+        if (xml.readyState == 4 && xml.status == 200) {
+            arrayOfImageNames = xml.response.split(",");
+            var newImgName = imgName.split(".")[0];
+
+            arrayOfImageNames.map(function(item, index){
+                if(item == newImgName){
+                    a = index + 1
+                }
+            });
+        }
+    };
+    xml.send();
 
     // Create DIV
     if (showImgName) {
-        html_str += '<p><b>Image name: ' + imgName + '</b></p>';
+        html_str += '<b style="font-size: 18px">Image name:</b><div><b>' + imgName + " (" + a + " from " + arrayOfImageNames.length + ")" + '</b></div>'
     }
+    html_str += '<p style="margin-bottom: 0"><a id="showAllImages" href="javascript:ShowAllImages()">Show all images</a></p>'
+    html_str += '<div><ol id="listOfImages"></ol></div>';
     html_str += '<b>Polygons in this image (' + NundeletedPolygons + ')</b>';
     html_str += '<p style="font-size:10px;line-height:100%"><a ' +
         'onmouseover="main_canvas.ShadePolygons();" ' +
@@ -168,7 +188,6 @@ function ChangeLinkColorBG(idx) {
     if (document.getElementById('Link' + idx)) {
         var isDeleted = parseInt($(LM_xml).children("annotation").children("object").eq(idx).children("deleted").text());
         if (isDeleted) document.getElementById('Link' + idx).style.color = '#888888';
-        else document.getElementById('Link' + idx).style.color = '#0000FF';
         var anid = main_canvas.GetAnnoIndex(idx);
         // If we're hiding all polygons, then remove rendered polygon from canvas:
         if (IsHidingAllPolygons && main_canvas.annotations[anid].hidden) {
@@ -179,7 +198,6 @@ function ChangeLinkColorBG(idx) {
 
 
 function ChangeLinkColorFG(idx) {
-    document.getElementById('Link' + idx).style.color = '#FF0000';
     var anid = main_canvas.GetAnnoIndex(idx);
     // If we're hiding all polygons, then render polygon on canvas:
     if (IsHidingAllPolygons && main_canvas.annotations[anid].hidden) {
@@ -216,6 +234,33 @@ function ShowAllPolygons() {
 
     // Create "hide all" button:
     $('#show_all_button').replaceWith('<a id="hide_all_button" href="javascript:HideAllPolygons();">Hide all polygons</a>');
+}
+
+function ShowAllImages() {
+    var xml_url = 'annotationTools/perl/get_all_images.cgi';
+    var x = new XMLHttpRequest();
+    x.open("GET", xml_url, true);
+    var arrayOfImageNames;
+    x.onreadystatechange = function () {
+        if (x.readyState == 4 && x.status == 200) {
+            arrayOfImageNames = x.response.split(",")
+            var list = document.getElementById("listOfImages");
+
+            arrayOfImageNames.forEach(function (value, index) {
+                var newIndex = index + 1;
+                list.innerHTML = list.innerHTML + "<li>" + " " + newIndex + ") " + "<a style='cursor: pointer;' href='javascript:ShowNextImage()'>" + value + "</a>" +"</li>";
+            });
+
+            // $('#listOfImages').replaceWith('<div id="shownListOfImages"><ol><li>Hide all polygons</li><li>dsdasdsdas</li></ol></div>');
+            $('#showAllImages').replaceWith('<a id="hideAllImages" href="javascript:HideAllImages()">Hide all images</a>');
+        }
+    };
+    x.send(null);
+}
+
+function HideAllImages() {
+    $('#listOfImages').replaceWith('<ol id="listOfImages"></ol>');
+    $('#hideAllImages').replaceWith('<a id="showAllImages" href="javascript:ShowAllImages()">Show all images</a>');
 }
 
 // *******************************************
