@@ -17,6 +17,7 @@ setpath:
 write_permissions:
 	@echo "Setting write permissions";
 	$(shell chmod -R 777 ./Annotations)
+	$(shell chmod -R 777 ./annotationCache/TmpAnnotations)
 	$(shell chmod -R 777 ./Masks)
 	$(shell chmod -R 777 ./Scribbles)
 	$(shell chmod -R 777 ./annotationCache/Logs/logfile.txt)
