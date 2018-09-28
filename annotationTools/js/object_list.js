@@ -8,6 +8,25 @@
 var IsHidingAllPolygons = false;
 var ListOffSet = 0;
 
+var collection = 'LabelMe';
+var dir_name = null;
+var mode = null;
+
+
+this.ParseURL = function () {
+    var labelme_url = new URL(document.URL.toString());
+    dir_name = labelme_url.searchParams.get("folder");
+    mode = labelme_url.searchParams.get("mode");
+    collection = labelme_url.searchParams.get("collection");
+};
+
+function getQueryParams() {
+    var labelme_url = new URL(document.URL.toString());
+    dir_name = labelme_url.searchParams.get("folder");
+    mode = labelme_url.searchParams.get("mode");
+    collection = labelme_url.searchParams.get("collection");
+}
+
 // This function creates and populates the list 
 function RenderObjectList() {
     // If object list has been rendered, then remove it:
@@ -27,10 +46,12 @@ function RenderObjectList() {
             NundeletedPolygons++;
         }
     }
-
+    if (!mode) {
+        getQueryParams();
+    }
     // Get parts tree
     var tree = getPartsTree();
-    var xmlUrl = 'annotationTools/perl/get_all_images.cgi';
+    var xmlUrl = 'annotationTools/perl/get_all_images.cgi' + '?collection=' + collection + '&mode=' + mode + '&folder=' + dir_name;
     var xml = new XMLHttpRequest();
     xml.open("GET", xmlUrl, false);
     var arrayOfImageNames;
@@ -40,8 +61,8 @@ function RenderObjectList() {
             arrayOfImageNames = xml.response.split(",");
             var newImgName = imgName.split(".")[0];
 
-            arrayOfImageNames.map(function(item, index){
-                if(item == newImgName){
+            arrayOfImageNames.map(function (item, index) {
+                if (item == newImgName) {
                     a = index + 1
                 }
             });
@@ -77,18 +98,17 @@ function RenderObjectList() {
     var x = new XMLHttpRequest();
     var xml_url = main_media.GetFileInfo().GetAnnotationPath();
     x.open("GET", xml_url, true);
-        x.onreadystatechange = function () {
-            if (x.readyState == 4 && x.status == 200)
-            {
-                var a = $(x.responseXML).children("annotation").children("object").children("confirmed").text();
-                if (parseInt(a) == 1) {
-                    $("#confirmRecognize").prop('checked', true);
-                } else {
-                    $("#confirmRecognize").prop('checked', false)
-                }
+    x.onreadystatechange = function () {
+        if (x.readyState == 4 && x.status == 200) {
+            var a = $(x.responseXML).children("annotation").children("object").children("confirmed").text();
+            if (parseInt(a) == 1) {
+                $("#confirmRecognize").prop('checked', true);
+            } else {
+                $("#confirmRecognize").prop('checked', false)
             }
-        };
-        x.send(null);
+        }
+    };
+    x.send(null);
     html_str += '<ol>';
 
     // Show list (of non-deleted objects)
@@ -237,7 +257,7 @@ function ShowAllPolygons() {
 }
 
 function ShowAllImages() {
-    var xml_url = 'annotationTools/perl/get_all_images.cgi';
+    var xml_url = 'annotationTools/perl/get_all_images.cgi' + '?collection=' + collection + '&mode=' + mode + '&folder=' + dir_name;
     var x = new XMLHttpRequest();
     x.open("GET", xml_url, true);
     var arrayOfImageNames;
@@ -248,7 +268,7 @@ function ShowAllImages() {
 
             arrayOfImageNames.forEach(function (value, index) {
                 var newIndex = index + 1;
-                list.innerHTML = list.innerHTML + "<li>" + newIndex + ") " + "<a id='imageItem' style='cursor: pointer; color: #592; list-style-type: none' onclick='javascript:ShowChosenImage($(this).text())'>" + value +"</a>" + "</li>";
+                list.innerHTML = list.innerHTML + "<li>" + newIndex + ") " + "<a id='imageItem' style='cursor: pointer; color: #592; list-style-type: none' onclick='javascript:ShowChosenImage($(this).text())'>" + value + "</a>" + "</li>";
             });
 
             // $('#listOfImages').replaceWith('<div id="shownListOfImages"><ol><li>Hide all polygons</li><li>dsdasdsdas</li></ol></div>');
