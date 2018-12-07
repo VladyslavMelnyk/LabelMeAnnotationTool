@@ -14,7 +14,7 @@ function GetEventPosY(event) {
 }
 
 function RemoveSpecialChars(str) {
-    var re = /\$|@|#|~|`|\%|\*|\^|\&|\+|\=|\[|\]|\}|\{|\;|\:|\'|\"|\<|\>|\?|\||\\|\!|\$/g;
+    var re = /`\&|\[|\]|\}|\{|\;|\:|\'|\"|\<|\>|\||\\/g;
     var aux = str.replace(re, "_");
     aux = aux.replace(/\s+/g, ' ');
     aux = aux.toLowerCase();
